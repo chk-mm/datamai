@@ -32,8 +32,9 @@
       class="vd wo/4 sd qo f ho oo wf yf"
       :class="{ 'd hh rm sr td ud qg ug jc yh': navigationOpen }"
     >
-    <x-navigation/>
+      <x-navigation/>
 
+      
     </div>
   </div>
 </header>
@@ -49,27 +50,44 @@
           <img src="{{ asset('images/icon/shape-02.svg') }}" alt="shape" class="xc 2xl:ud-block h u p va" />
           <img src="{{ asset('images/icon/shape-03.svg') }}" alt="shape" class="xc 2xl:ud-block h v w va" />
           <img src="{{ asset('images/icon/shape-04.svg') }}" alt="shape" class="h q r" />
-          <img src="{{ asset($mentor->photo_url) }}" alt="Woman" class="h q r ua" />
+          <img src="{{ asset('images/icon/hero.png') }}" alt="Woman" class="h q r ua" />
         </div>
-
+        
         <!-- Hero Content -->
         <div class="bb ze ki xn 2xl:ud-px-0">
           <div class="tc _o">
             <div class="animate_left jn/2">
-              <h1 class="fk vj zp or kk wm wb">{{ $mentor->name }} {{ $mentor->surname }}</h1>
-              @foreach ($mentor->modules as $module)
-                  <li> {{ $module->title }}</li> <!-- Displays the name of each module taught by the mentor -->
-              @endforeach              
+
+              <div class="container">
+
+
+
+              <h1 class="fk vj zp or kk wm wb">Assign Modules for {{ $mentor->name }}</h1>
               
+                
 
-              <div class="tc tf yo zf mb">
-                <a href="{{ route('mentors.index') }}" class="ek jk lk gh gi hi rg ml il vc _d _l">Back to previous page</a>
-          @auth
+              <h1></h1>
+    <form action="{{ route('mentors.update.modules', $mentor->id) }}" method="POST">
+            <label for="modules">Select Modules:</label>
+        @csrf
+        <div class="form-group">
+            <select multiple class="form-control" id="module_id" name="module_id[]">
+            @foreach($modules as $module)
+            <div>
+                <input type="checkbox" name="modules[]" value="{{ $module->id }}" {{ $mentor->modules->contains($module->id) ? 'checked' : '' }}>
+                <label>{{ $module->title }}</label>
+            </div>
+        @endforeach
+            </select>
+        </div>
+        <button type="submit" class="btn btn-primary">Update Modules</button>
+    </form>
+</div>
 
-                <a href="{{ route('mentors.edit.modules', $mentor->id) }}" class="ek jk lk gh gi hi rg ml il vc _d _l">Assign Modules</a>
-                @endauth
 
-              </div>
+
+
+              
             </div>
           </div>
         </div>

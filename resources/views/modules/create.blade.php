@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 <head>
@@ -32,8 +33,9 @@
       class="vd wo/4 sd qo f ho oo wf yf"
       :class="{ 'd hh rm sr td ud qg ug jc yh': navigationOpen }"
     >
-    <x-navigation/>
+      <x-navigation/>
 
+      
     </div>
   </div>
 </header>
@@ -49,27 +51,37 @@
           <img src="{{ asset('images/icon/shape-02.svg') }}" alt="shape" class="xc 2xl:ud-block h u p va" />
           <img src="{{ asset('images/icon/shape-03.svg') }}" alt="shape" class="xc 2xl:ud-block h v w va" />
           <img src="{{ asset('images/icon/shape-04.svg') }}" alt="shape" class="h q r" />
-          <img src="{{ asset($mentor->photo_url) }}" alt="Woman" class="h q r ua" />
+          <img src="{{ asset('images/icon/hero.png') }}" alt="Woman" class="h q r ua" />
         </div>
-
+        
         <!-- Hero Content -->
         <div class="bb ze ki xn 2xl:ud-px-0">
           <div class="tc _o">
             <div class="animate_left jn/2">
-              <h1 class="fk vj zp or kk wm wb">{{ $mentor->name }} {{ $mentor->surname }}</h1>
-              @foreach ($mentor->modules as $module)
-                  <li> {{ $module->title }}</li> <!-- Displays the name of each module taught by the mentor -->
-              @endforeach              
+
+              <div class="container">
+
+
+
+              <h1 class="fk vj zp or kk wm wb">Add New Module</h1>
               
+                
 
-              <div class="tc tf yo zf mb">
-                <a href="{{ route('mentors.index') }}" class="ek jk lk gh gi hi rg ml il vc _d _l">Back to previous page</a>
-          @auth
 
-                <a href="{{ route('mentors.edit.modules', $mentor->id) }}" class="ek jk lk gh gi hi rg ml il vc _d _l">Assign Modules</a>
-                @endauth
+    <form method="post" action="{{ route('modules.store') }}">
+        @csrf
+        <!-- Form fields for module creation -->
+        <input type="text" name="title" placeholder="Module Title" required>
+        <input type="text" name="content" placeholder="Module content" required>
+        <input type="text" name="img_url" placeholder="images/content/1.jpg" required>
+        <button type="submit">Save Module</button>
+    </form>
+</div>
 
-              </div>
+
+
+
+              
             </div>
           </div>
         </div>

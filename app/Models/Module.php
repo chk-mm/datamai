@@ -10,10 +10,13 @@ class Module extends Model
     use HasFactory;
     
     protected $table = 'modules'; // Only necessary if Laravel's naming convention isn't followed
+    protected $fillable = ['title', 'content','img_url'];
 
     public function mentors()
 {
     return $this->belongsToMany(Mentor::class, 'mentor_module', 'module_id', 'mentor_id');
 }
+
+
 
 }
